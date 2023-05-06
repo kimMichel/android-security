@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">My Application</string>
+    <!-- Home -->
+    <string name="title">Gerei Senha</string>
+    <string name="button4digit">4 digitos</string>
+    <string name="button6digit">6 digitos</string>
+    <string name="button8digit">8 digitos</string>
+    <string name="button_alphanumeric">Letras e Números</string>
+    <string name="button_save">Salvar</string>
+    <string name="button_store">Store</string>
+    <!-- Store -->
+    <string name="passowrd_hide">********</string>
 </resources>
