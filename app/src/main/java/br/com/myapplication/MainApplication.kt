@@ -10,15 +10,5 @@ import org.koin.core.context.startKoin
 class MainApplication: Application() {
     override fun onCreate() {
         super.onCreate()
-        startKoinApp()
-    }
-
-    private fun startKoinApp() {
-        val appModules = listOf(mainModule, homeModule)
-        startKoin {
-            androidLogger()
-            androidContext(this@MainApplication)
-            modules(appModules)
-        }
     }
 }
