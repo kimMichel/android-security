@@ -1,15 +1,25 @@
 package br.com.myapplication.ui.home
 
-import android.content.Context
 import android.widget.TextView
-import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import br.com.myapplication.models.Password
+import br.com.myapplication.repository.AppRepository
 import br.com.myapplication.shared.security.CryptoManager
+import kotlinx.coroutines.launch
 import java.util.Random
 
-class HomeViewModel: ViewModel() {
+class HomeViewModel(private val repository: AppRepository): ViewModel() {
 
-    private var encryptedPassword: String = ""
+    val allPasswords: LiveData<List<Password>> = repository.allPasswords.asLiveData()
+
+    fun insert(password: String) = viewModelScope.launch {
+        val request = Password(password = CryptoManager.encrypt(password))
+        repository.insert(request)
+    }
+
     fun generatePassword(digit: Int, txtResult: TextView) {
         val numbers = mutableListOf<Int>()
         val random = Random()
@@ -29,15 +39,5 @@ class HomeViewModel: ViewModel() {
         return (1..length)
             .map { allowedChars.random() }
             .joinToString(" ")
-    }
-
-    fun encryptTest(password: String, context: Context) {
-        encryptedPassword = CryptoManager.encrypt(password)
-        Toast.makeText(context, encryptedPassword, Toast.LENGTH_SHORT).show()
-    }
-
-    fun decryptTest(context: Context) {
-        val decrypt = CryptoManager.decrypt(encryptedPassword)
-        Toast.makeText(context, decrypt, Toast.LENGTH_SHORT).show()
     }
 }

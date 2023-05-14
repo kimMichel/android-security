@@ -2,11 +2,13 @@ package br.com.myapplication.ui.home
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import br.com.myapplication.databinding.FragmentHomeBinding
 import org.koin.android.ext.android.inject
 
@@ -41,20 +43,19 @@ class HomeFragment : Fragment() {
             viewModel.generatePassword(8, textResult)
         }
         btnAlpha.setOnClickListener {
-            viewModel.generateAlphaNumPassword(6)
+            textResult.text = viewModel.generateAlphaNumPassword(6)
         }
         btnSave.setOnClickListener {
-            viewModel.encryptTest(textResult.text.toString(), requireContext())
+            viewModel.insert(textResult.text as String)
         }
         btnStore.setOnClickListener {
-//            HomeFragmentDirections.actionHomeFragmentToStoreFragment().apply {
-//                try {
-//                    findNavController().navigate(this)
-//                } catch (e: Exception) {
-//                    Log.e("NavigationException", e.message, e)
-//                }
-//            }
-            viewModel.decryptTest(requireContext())
+            HomeFragmentDirections.actionHomeFragmentToStoreFragment().apply {
+                try {
+                    findNavController().navigate(this)
+                } catch (e: Exception) {
+                    Log.e("NavigationException", e.message, e)
+                }
+            }
         }
     }
 }
