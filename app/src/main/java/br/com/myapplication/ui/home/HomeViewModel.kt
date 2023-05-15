@@ -1,9 +1,7 @@
 package br.com.myapplication.ui.home
 
 import android.widget.TextView
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.myapplication.models.Password
 import br.com.myapplication.repository.AppRepository
@@ -12,8 +10,6 @@ import kotlinx.coroutines.launch
 import java.util.Random
 
 class HomeViewModel(private val repository: AppRepository): ViewModel() {
-
-    val allPasswords: LiveData<List<Password>> = repository.allPasswords.asLiveData()
 
     fun insert(password: String) = viewModelScope.launch {
         val request = Password(password = CryptoManager.encrypt(password))
