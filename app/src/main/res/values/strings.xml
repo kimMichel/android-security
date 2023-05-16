@@ -9,5 +9,5 @@
     <string name="button_save">Salvar</string>
     <string name="button_store">Store</string>
     <!-- Store -->
-    <string name="passowrd_hide">********</string>
+    <string name="password_decode">decode</string>
 </resources>
